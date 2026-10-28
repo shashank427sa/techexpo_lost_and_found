@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Report {{ kind }} item · Fast Find AI{% endblock %}
+{% block content %}
+<div class="form-card wide">
+<div class="eyebrow">NEW REPORT</div><h1>{% if kind == 'lost' %}I lost something{% else %}I found something{% endif %}</h1>
+<p class="muted">{% if kind == 'found' %}This report will stay private. Do not include full ID numbers, card numbers or other sensitive data.{% else %}Describe the item accurately. Keep one or two unique ownership details private for verification.{% endif %}</p>
+<form method="post" enctype="multipart/form-data">
+<div class="form-grid">
+<label>Item name<input name="title" required maxlength="120" placeholder="e.g. Black wallet"></label>
+<label>Category<select name="category" required><option value="">Choose category</option><option>Wallet</option><option>Phone</option><option>Keys</option><option>Bag</option><option>Electronics</option><option>Documents</option><option>Jewellery</option><option>Clothing</option><option>Other</option></select></label>
+<label>Color<input name="color" required maxlength="40" placeholder="e.g. Black"></label>
+<label>Location<input name="location" required maxlength="160" placeholder="Area or public place"></label>
+<label>Date lost/found<input type="date" name="item_date" required></label>
+<label>Photo (optional)<input type="file" name="image" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"><small>PNG/JPG/WEBP · maximum 5 MB</small></label>
+</div>
+<label>Description<textarea name="description" rows="4" required maxlength="1000" placeholder="Brand, appearance, distinguishing marks (avoid sensitive details)"></textarea></label>
+<button class="button full">Save report and check matches</button>
+</form></div>
+{% endblock %}

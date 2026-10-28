@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Claims · Fast Find AI{% endblock %}
+{% block content %}
+<div class="eyebrow">CLAIM REVIEW</div><h1>Claims on your found reports</h1><p class="muted">Review the claimant's private proof. Approving a claim is not identity verification; arrange a safe handover and confirm details yourself.</p>
+{% if claims %}<div class="item-grid">{% for c, m, lost in claims %}
+<article class="item-card"><span class="pill match">CLAIM #{{ c.id }}</span><h2>{{ lost.title }}</h2><p>Match score: {{ m.score }}%</p><p><strong>Claimant's proof:</strong></p><p>{{ c.proof_text }}</p><p class="muted">Status: {{ c.status }}</p>
+{% if c.status == 'pending' %}<div class="actions"><form method="post" action="{{ url_for('decide_claim', claim_id=c.id, decision='approve') }}"><button class="button">Approve</button></form><form method="post" action="{{ url_for('decide_claim', claim_id=c.id, decision='reject') }}"><button class="button danger">Reject</button></form></div>{% endif %}</article>
+{% endfor %}</div>{% else %}<div class="empty large">No claims on your found reports right now.</div>{% endif %}
+{% endblock %}

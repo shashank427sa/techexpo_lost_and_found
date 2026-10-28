@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}Admin · Fast Find AI{% endblock %}
+{% block content %}
+<div class="page-heading"><div class="eyebrow">TRUST & SAFETY</div><h1>Admin review center</h1><p class="muted">Private moderation overview. Only accounts configured with ADMIN_EMAIL can access this page.</p></div>
+<section class="section"><h2>Recent reports <span class="private-label">PRIVATE</span></h2>
+{% if items %}<div class="table-wrap"><table><thead><tr><th>ID</th><th>Type</th><th>Item</th><th>Category</th><th>Location</th><th>Reporter ID</th><th>Date</th></tr></thead><tbody>
+{% for item in items %}<tr><td>{{ item.public_id }}</td><td><span class="pill {{ item.kind }}">{{ item.kind|upper }}</span></td><td>{{ item.title }}</td><td>{{ item.category }}</td><td>{{ item.location }}</td><td>{{ item.owner_id }}</td><td>{{ item.created_at.strftime('%d %b %Y') }}</td></tr>{% endfor %}
+</tbody></table></div>{% else %}<p class="empty">No reports yet.</p>{% endif %}</section>
+<section class="section"><h2>Claims requiring oversight</h2>
+{% if claims %}<div class="item-grid">{% for c in claims %}<article class="item-card"><span class="pill match">CLAIM #{{ c.id }}</span><h3>Status: {{ c.status }}</h3><p>Match ID: {{ c.match_id }} · Claimant ID: {{ c.claimant_id }}</p><p>{{ c.proof_text }}</p>
+{% if c.status == 'pending' %}<div class="actions"><form method="post" action="{{ url_for('admin_decide_claim', claim_id=c.id, decision='approve') }}"><button class="button">Approve</button></form><form method="post" action="{{ url_for('admin_decide_claim', claim_id=c.id, decision='reject') }}"><button class="button danger">Reject</button></form></div>{% endif %}</article>{% endfor %}</div>{% else %}<p class="empty">No claims submitted.</p>{% endif %}</section>
+<section class="section"><h2>Registered users</h2><div class="table-wrap"><table><thead><tr><th>User ID</th><th>Name</th><th>Email</th><th>Role</th></tr></thead><tbody>{% for user in users %}<tr><td>{{ user.public_id }}</td><td>{{ user.name }}</td><td>{{ user.email }}</td><td>{{ user.role }}</td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

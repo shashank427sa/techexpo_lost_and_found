@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Potential matches · Fast Find AI{% endblock %}
+{% block content %}
+<div class="eyebrow">AI MATCHING</div><h1>Your potential matches</h1><p class="muted">Only matches involving your own reports are shown. Scores can be wrong—verify ownership before returning an item.</p>
+{% if matches %}<div class="item-grid">{% for m in matches %}
+{% set lost = m.lost_id %}
+<article class="item-card"><span class="pill match">MATCH #{{ m.id }}</span><h2>{{ m.score }}% similarity</h2><p>Status: {{ m.status }}</p>
+{% if m.score >= 65 %}<p class="muted">Higher similarity — review carefully.</p>{% else %}<p class="muted">Low-confidence suggestion — check the details.</p>{% endif %}
+{% if m.status != 'claim-approved' %}
+<form method="post" action="{{ url_for('claim', match_id=m.id) }}"><label>Ownership proof (private)<textarea name="proof_text" rows="3" required minlength="10" maxlength="1000" placeholder="Describe a unique detail not shown in the report."></textarea></label><button class="button full">Send claim to finder</button></form>
+{% else %}<p class="success-text">A claim has been approved. Arrange a safe handover.</p>{% endif %}
+</article>{% endfor %}</div>
+{% else %}<div class="empty large">No matches available yet.<br><small>Submit a lost report and a found report from different accounts to test matching.</small></div>{% endif %}
+{% endblock %}

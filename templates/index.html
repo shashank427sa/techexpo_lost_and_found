@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Fast Find AI — Lost things find their way home{% endblock %}
+{% block content %}
+<section class="hero hero-home">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="eyebrow-pulse"></span> A SMARTER WAY TO FIND WHAT'S LOST</div>
+    <h1>Lost something?<br><span>Let's bring it</span><br>back to you.</h1>
+    <p class="hero-description">A missing wallet, keys, or something meaningful. Share a few details and let smart matching help reconnect you with what matters.</p>
+    <div class="actions hero-actions">
+      {% if current_user.is_authenticated %}
+        <a class="button" href="{{ url_for('report', kind='lost') }}">Report a lost item <span aria-hidden="true">→</span></a>
+        <a class="button secondary" href="{{ url_for('report', kind='found') }}"><span class="button-plus">＋</span> I found something</a>
+      {% else %}
+        <a class="button" href="{{ url_for('register') }}">Start your search <span aria-hidden="true">→</span></a>
+        <a class="button secondary" href="{{ url_for('login') }}">I already have an account</a>
+      {% endif %}
+    </div>
+    <div class="hero-trust"><span class="trust-icon">✓</span><span><strong>Privacy comes first</strong><small>Found-item details stay private. Always.</small></span></div>
+  </div>
+  <div class="hero-art" aria-label="Illustration of a lost item being found">
+    <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+    <div class="art-glow"></div>
+    <div class="floating-tag tag-top"><span class="tag-dot"></span> SMART MATCHING <span class="tag-spark">✳</span></div>
+    <div class="search-illustration">
+      <div class="search-handle"></div><div class="search-lens"><div class="lens-inner"><span class="lens-star">✦</span><span class="lens-check">✓</span></div></div>
+      <div class="lens-sheen"></div>
+    </div>
+    <div class="floating-card card-wallet"><div class="mini-icon wallet-icon">▰</div><div><strong>Wallet</strong><small>Possible match found</small></div><span class="match-check">✓</span></div>
+    <div class="floating-card card-keys"><div class="mini-icon key-icon">⌁</div><div><strong>Keys</strong><small>Matching details</small></div><span class="match-score">92%</span></div>
+    <div class="art-caption"><span class="caption-line"></span><span>Every item has a way home.</span></div>
+  </div>
+  <div class="hero-bottom-note"><span>01 / REPORT</span><span class="note-divider"></span><span>02 / MATCH</span><span class="note-divider"></span><span>03 / RECONNECT</span></div>
+</section>
+<section class="features-section">
+  <div class="section-intro"><div class="eyebrow">MADE TO MAKE IT EASIER</div><h2>Less searching.<br><span>More finding.</span></h2><p>Simple tools that help the right belongings find their way back to the right people.</p></div>
+  <div class="features">
+    <article class="feature-card"><div class="feature-top"><span class="feature-icon icon-purple">⌕</span><span class="feature-number">01</span></div><h3>Smart matching</h3><p>Compare descriptions, categories and item photos to surface possible matches faster.</p><div class="feature-link">Find connections <span>↗</span></div></article>
+    <article class="feature-card"><div class="feature-top"><span class="feature-icon icon-green">◇</span><span class="feature-number">02</span></div><h3>Private by design</h3><p>Found reports aren't public listings. Sensitive details stay behind the right access.</p><div class="feature-link">Your privacy matters <span>↗</span></div></article>
+    <article class="feature-card"><div class="feature-top"><span class="feature-icon icon-orange">↗</span><span class="feature-number">03</span></div><h3>Safer handovers</h3><p>Submit a claim and provide details so a finder can review before arranging a return.</p><div class="feature-link">Return with confidence <span>↗</span></div></article>
+  </div>
+</section>
+<section class="closing-cta"><div><span class="closing-kicker">YOUR NEXT STEP IS SIMPLE</span><h2>Let's get your item<br>back where it belongs.</h2></div><div class="closing-action">{% if current_user.is_authenticated %}<a class="button button-light" href="{{ url_for('report', kind='lost') }}">Create a report <span>→</span></a>{% else %}<a class="button button-light" href="{{ url_for('register') }}">Create your free account <span>→</span></a>{% endif %}<small>Free to report · Built around privacy</small></div></section>
+{% endblock %}

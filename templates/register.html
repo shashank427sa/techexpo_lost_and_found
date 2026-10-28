@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Register · Fast Find AI{% endblock %}
+{% block content %}
+<div class="form-card"><h1>Create account</h1><p class="muted">Use an email you can access.</p>
+<form method="post">
+<label>Full name<input name="name" required maxlength="80" autocomplete="name"></label>
+<label>Email<input type="email" name="email" required autocomplete="email"></label>
+<label>Password<input type="password" name="password" required minlength="8" autocomplete="new-password"><small>At least 8 characters.</small></label>
+<button class="button full">Create account</button>
+</form><p class="muted">Already registered? <a href="{{ url_for('login') }}">Log in</a></p></div>
+{% endblock %}
